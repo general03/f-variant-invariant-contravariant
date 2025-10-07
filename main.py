@@ -1,19 +1,13 @@
-from typing import Callable
 
-class A:  
+class Dog:
   pass
 
-class B(A):  
-  pass
+class Box[T]:
+    def __init__(self, content: T) -> None:
+        self._content = content
 
-def process_a(data: A) -> None:
-  print("Processing A")
+def play_with_dog(box: Box[Dog]):
+    print(f"Play in {type(box).__name__}")
 
-def process_b(data: B) -> None:
-  print("Processing B")
-
-def handler(func: Callable[[A], None]):
-   func(B())
-
-handler(process_a) # Ceci est valide  
-handler(process_b) # Fails mypy check, car process_b prend un type B, qui est plus spécifique que A.
+box = Box(Dog())
+play_with_dog(box)
