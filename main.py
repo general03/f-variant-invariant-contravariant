@@ -1,14 +1,19 @@
-from typing import Sequence
+from typing import Callable
 
-class Animal:
+class A:  
   pass
 
-class Dog(Animal):  
+class B(A):  
   pass
 
-def feed_animals(animals: Sequence[Animal]):
-  for animal in animals:
-    print(f"Feeding a(n) {type(animal).__name__}")
+def process_a(data: A) -> None:
+  print("Processing A")
 
-dogs = [Dog(), Dog()]
-feed_animals(dogs) # Ceci est valide
+def process_b(data: B) -> None:
+  print("Processing B")
+
+def handler(func: Callable[[A], None]):
+   func(B())
+
+handler(process_a) # Ceci est valide  
+handler(process_b) # Fails mypy check, car process_b prend un type B, qui est plus spécifique que A.
