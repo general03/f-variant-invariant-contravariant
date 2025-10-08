@@ -1,13 +1,15 @@
 
-class Dog:
-  pass
+from typing import Generic, TypeVar
 
-class Box[T]:
-    def __init__(self, content: T) -> None:
+class Dog:
+    pass
+
+T_co = TypeVar('T_co', covariant=True)
+class Box(Generic[T_co]):
+    def __init__(self, content: T_co) -> None:
         self._content = content
 
-def play_with_dog(box: Box[Dog]):
-    print(f"Play in {type(box).__name__}")
+def do_something(dog: Box[Dog]):
+    pass
 
-box = Box(Dog())
-play_with_dog(box)
+do_something(Box(Dog()))
