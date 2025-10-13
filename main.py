@@ -1,3 +1,6 @@
+from typing import Final
+
+
 class Animal:
   pass
 
@@ -6,7 +9,7 @@ class Dog(Animal):
 
 class Box[T]:
     def __init__(self, content: T) -> None:
-        self._content = content
+        self.content : Final = content # public attribut
 
 def play_with_dog(box: Box[Animal]):
     print(f"Play in {type(box).__name__}")
