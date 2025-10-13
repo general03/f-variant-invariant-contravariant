@@ -1,3 +1,6 @@
+from typing import Final
+
+
 class Animal:
   pass
 
@@ -6,7 +9,7 @@ class Dog(Animal):
 
 class Box[T]:
     def __init__(self, content: T) -> None:
-        self._content = content
+        self.content : Final = content # public attribut
 
     def set_content(self, content: T) -> T: # This method infers the generic type
         self._content = content
