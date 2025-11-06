@@ -1,22 +1,14 @@
-from typing import Final
+from typing import Generic, TypeVar
 
+class Dog:
+    pass
 
-class Animal:
-  pass
-
-class Dog(Animal):
-  pass
-
-class Box[T]:
-    def __init__(self, content: T) -> None:
-        self.content : Final = content # public attribut
-
-    def set_content(self, content: T) -> T: # This method infers the generic type
+T_co = TypeVar('T_co', covariant=True)
+class Box(Generic[T_co]):
+    def __init__(self, content: T_co) -> None:
         self._content = content
-        return self._content
 
-def play_with_dog(box: Box[Animal]):
-    print(f"Play in {type(box).__name__}")
+def do_something(dog: Box[Dog]):
+    pass
 
-box = Box(Dog())
-play_with_dog(box) # Mypy: Argument 1 to "play_with_dog" has incompatible type "Box[Dog]"; expected "Box[Animal]"
+do_something(Box(Dog()))
